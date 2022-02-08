@@ -11,8 +11,4 @@ public class ImportError {
     private String rowNumber;
     private String columnName;
     private String errorDetails;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6cea997f22c88824bd8f59bf483113a234f656bb

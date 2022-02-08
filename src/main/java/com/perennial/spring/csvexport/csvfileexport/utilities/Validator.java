@@ -30,12 +30,14 @@ public class Validator {
         for (Map.Entry<Long, List<Optional<String>>> entry : allRows.entrySet()) {
             long rowNumber = entry.getKey();
             List<Optional<String>> row =  entry.getValue();
+
+           // System.out.println(rowNumber + ":" + entry.getValue());
             Student student = new Student();
             try {
-                long id = Long.parseLong(String.valueOf(row.get(0)));
+                long id = Long.parseLong(String.valueOf(row.get(0).get()));
                 student.setId(id);
 
-                Optional<String> name = row.get(1);
+                String name = row.get(1).get();
                 if(name.isEmpty()) {
                     throw new NullNameException("Name should not be null");
                 }
@@ -44,7 +46,7 @@ public class Validator {
                 }
                 student.setName(String.valueOf(name));
 
-                Optional<String> address = row.get(2);
+                String address = row.get(2).get();
                 if(address.isEmpty()) {
                     throw new NullAddressException("Address should not be null");
                 }
@@ -54,6 +56,7 @@ public class Validator {
                 student.setAddress(String.valueOf(address));
                 validationResult.addStudent(student);
             } catch (NumberFormatException e) {
+                e.printStackTrace();
                 ImportError error = new ImportError( String.valueOf(rowNumber), "id", "Invalid Number format");
                 validationResult.addError (error);
             } catch (NullNameException ne) {
